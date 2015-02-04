@@ -10,6 +10,10 @@
 				new MovieEntity("MiB 3","20 June 2010","http://cdn.demo.fabthemes.com/edivos/files/2012/07/men-in-black-3-9260-1024x768-450x280.jpg"),
 
 			);
+
+		$database = Database::getInstance();
+		$movies = $database->getSliderMovies();
+
 		foreach ($movies as $movie) {
         		echo '<li style="overflow: hidden; float: left; width: 450px; height: 280px;">';
             		echo '<a href="http://demo.fabthemes.com/edivos/video/sherlock-holmes/"><img class="slide-image" src="'.$movie->getThumbnailUrl().'" title=""></a>';
@@ -19,7 +23,6 @@
             		echo '</div>';
          		echo '</li>';
 		};
-
 	 ?>
       </ul>
    </div>
