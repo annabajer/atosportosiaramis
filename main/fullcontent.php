@@ -2,6 +2,24 @@
                <div id="topbar" class="clearfix">
                   <div class="leftinfo"> Latest Videos</div>
                </div>
+
+	       <?php 
+
+		$database = Database::getInstance();
+		$movies = $database->getFullContentMovies();
+
+		foreach ($movies as $movie) {
+        		echo '<div class="video-post">';
+			echo '<div class="video-title">';
+            		echo '<h2><a href="" rel="bookmark">'.$movie->getTitle().'</a></h2>';			
+            		echo '</div>';
+         		echo '<a href=""><img class="video-image" width=165 height=110 src="'.$movie->getThumbnailUrl().'"></a>';
+			echo '</div>';
+		};
+	       ?>
+		
+		<!-- remove those movies below. all movies should be read from database -->
+
                <div class="video-post" id="post-851">
                   <div class="video-title">
                      <h2><a href="http://demo.fabthemes.com/edivos/video/sherlock-holmes/" rel="bookmark" title="Permanent Link to Sherlock Holmes">Sherlock Holmes	</a></h2>

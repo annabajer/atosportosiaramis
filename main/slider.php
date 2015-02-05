@@ -5,12 +5,6 @@
       <ul style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 4050px; left: -1350px;">
 	 <?php 
 		include 'main/MovieEntity.php';
-		$movies = array(new MovieEntity("Sherlock Holmes","6 June 2012","http://cdn.demo.fabthemes.com/edivos/files/2012/07/sherlock-holmes-a-game-of-shadows-9243-1024x768-450x280.jpg"),
-				new MovieEntity("Skyfall","12 June 2012","http://cdn.demo.fabthemes.com/edivos/files/2012/07/skyfall-9350-1024x768-450x280.jpg"),
-				new MovieEntity("MiB 3","20 June 2010","http://cdn.demo.fabthemes.com/edivos/files/2012/07/men-in-black-3-9260-1024x768-450x280.jpg"),
-
-			);
-
 		$database = Database::getInstance();
 		$movies = $database->getSliderMovies();
 

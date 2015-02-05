@@ -28,6 +28,18 @@ final class Database
 	return $results;
     }
 
+    public function getFullContentMovies() 
+    {
+	$query = "SELECT * FROM movies";
+	$sql_result = mysqli_query($this->conn, $query);
+	$results = array();
+	while($row = mysqli_fetch_array($sql_result))
+	{		
+		array_push($results,new MovieEntity($row[1],$row[2],$row[3],$row[4],$row[5]));
+	}
+	return $results;
+    }
+
     public function createDbTables()
     {
  	$query = "CREATE TABLE movies (id serial PRIMARY KEY, title VARCHAR (80) NOT NULL, premiereDate TIMESTAMP, thumbnailUrl VARCHAR (255), movieDescritpion TEXT, trailerUrl VARCHAR (255));".
