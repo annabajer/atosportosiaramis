@@ -11,9 +11,9 @@
 		foreach ($movies as $movie) {
         		echo '<div class="video-post">';
 			echo '<div class="video-title">';
-            		echo '<h2><a href="" rel="bookmark">'.$movie->getTitle().'</a></h2>';			
+            		echo '<h2><a href="'.$base.'/index.php/movie?movie_id='.$movie->getId().'" rel="bookmark">'.$movie->getTitle().'</a></h2>';			
             		echo '</div>';
-         		echo '<a href=""><img class="video-image" width=165 height=110 src="'.$movie->getThumbnailUrl().'"></a>';
+         		echo '<a href="'.$base.'/index.php/movie?movie_id='.$movie->getId().'"><img class="video-image" width=165 height=110 src="'.$movie->getThumbnailUrl().'"></a>';
 			echo '</div>';
 		};
 	       ?>
