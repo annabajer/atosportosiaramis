@@ -1,11 +1,12 @@
 /*
 /*
 
-Theme Name: Edivos
+Theme Name:Edivos
 Theme URL: http://www.fabthemes.com/edivos/
+Description: Free WordPress theme released by fabthemes.com
 Author: Fabthemes
 Author URI: www.fabthemes.com
-Version: 1.4
+Version: 1.0.0
 Tags: Videos, grey, white, Black, red, right-sidebar,theme-options, threaded-comments, banner ads, adsense,fab themes.
 
 */
@@ -1199,6 +1200,7 @@ h3.bothead{
 	}
 
 .botwid ul li {
+	height:100%;
 	line-height:18px;
 	clear: left;	
 	list-style-type: none;
