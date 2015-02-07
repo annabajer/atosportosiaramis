@@ -1,6 +1,6 @@
 <html lang="en-US">
 		
-   <?php include 'head.php';
+   <?php include 'header/head.php';
 	 include 'main/MovieEntity.php';
 	$base = pathinfo($_SERVER['PHP_SELF'])['dirname'];
    ?>
