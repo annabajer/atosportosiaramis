@@ -30,6 +30,7 @@
             <a href="#">Genre</a>
             <ul class="sub-menu">
 		<?php 
+			echo '<li class="menu-item menu-item-type-taxonomy menu-item-object-genre"><a href='.$base.'>All</a></li>';
 			$all_genres = $database->getAllGenres();
 			foreach ($all_genres as $genre) { 
 				echo '<li class="menu-item menu-item-type-taxonomy menu-item-object-genre"><a href='.$base.'?genres='.$genre[0].'>';
