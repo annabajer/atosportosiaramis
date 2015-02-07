@@ -1,6 +1,7 @@
    <?php 
 	$database = Database::getInstance();
 	$movie_id = htmlspecialchars($_GET["movie_id"]); 
+	$selected_genres = htmlspecialchars($_GET["genres"]); 
 	$movie = $database->getMovieDetails($movie_id);
    ?>
 
@@ -29,9 +30,9 @@
             <a href="#">Genre</a>
             <ul class="sub-menu">
 		<?php 
-			$genres = $database->getAllGenres();
-			foreach ($genres as $genre) { 
-				echo '<li class="menu-item menu-item-type-taxonomy menu-item-object-genre"><a>';
+			$all_genres = $database->getAllGenres();
+			foreach ($all_genres as $genre) { 
+				echo '<li class="menu-item menu-item-type-taxonomy menu-item-object-genre"><a href='.$base.'?genres='.$genre[0].'>';
 				echo $genre[1];
 				echo '</a></li>';
 			}

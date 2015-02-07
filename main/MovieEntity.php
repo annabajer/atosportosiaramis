@@ -28,9 +28,13 @@ final class Database
 	return $results;
     }
 
-    public function getFullContentMovies() 
+    public function getFullContentMovies($genre = NULL) 
     {
-	$query = "SELECT * FROM movies";
+	if ($genre == NULL) {
+		$query = "SELECT * FROM movies";
+	} else {
+		$query = "SELECT DISTINCT movies.* FROM movies inner join movie_genres on movie_genres.movie_id=movies.id where movie_genres.genre_id in (".$genre.")";
+	}
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
