@@ -1,9 +1,4 @@
 <div class="video-single">
-   <?php 
-	$database = Database::getInstance();
-	$movie_id = htmlspecialchars($_GET["movie_id"]); 
-	$movie = $database->getMovieDetails($movie_id);
-   ?>
    <div class="videoframe">
 	<?php echo '<iframe width="800" height="450" src="'.$movie->getTrailerUrl().'"></iframe>'; ?>
    </div>

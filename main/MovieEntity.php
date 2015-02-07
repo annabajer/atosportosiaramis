@@ -65,6 +65,19 @@ final class Database
 	return $results;
     }
 
+    public function getAllGenres() 
+    {
+	$query = "SELECT * FROM genres";
+	$sql_result = mysqli_query($this->conn, $query);
+	$results = array();
+	while($row = mysqli_fetch_array($sql_result))
+	{		
+		array_push($results,$row);
+	}
+	return $results;
+    }
+
+
     public function createDbTables()
     {
  	$all_queries = "DROP TABLE movie_genres;".
