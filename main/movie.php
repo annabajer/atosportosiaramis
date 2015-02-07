@@ -19,7 +19,16 @@
       <div class="clear"></div>
    </div>
    <div class="postmeta">
-      <span class="genretag clearfix"><a href="http://demo.fabthemes.com/edivos/genre/action/" rel="tag">Action</a><a href="http://demo.fabthemes.com/edivos/genre/comedy/" rel="tag">Comedy</a><a href="http://demo.fabthemes.com/edivos/genre/super-hero/" rel="tag">Super hero</a><a href="http://demo.fabthemes.com/edivos/genre/thriller/" rel="tag">Thriller</a>  </span>
+	<span class="genretag clearfix">
+	<?php 
+		$genres = $database->getMovieGenre($movie_id);
+		foreach ($genres as $genre) { 
+			echo '<a href="" rel="tag">';
+			echo $genre;
+			echo '</a>';
+		}
+	?>
+	</span>
    </div>
 </div>
 <div class="video-comments">
