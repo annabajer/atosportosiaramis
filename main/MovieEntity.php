@@ -92,6 +92,17 @@ final class Database
 	}
 	return $results;
     }
+	
+	public function validateUserPassword($user, $pass)
+	{
+		$query = "SELECT * from users where username='".$user."' and password='".$pass."';";
+		$sql_result = mysqli_query($this->conn, $query);
+		if (mysqli_fetch_array($sql_result)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 
     public function createDbTables()
@@ -100,6 +111,7 @@ final class Database
 		"DROP TABLE reviews;".
 		"DROP TABLE movies;".
 		"DROP TABLE genres;".
+		"DROP TABLE users;".
 		"CREATE TABLE movies (id serial PRIMARY KEY, title VARCHAR (80) NOT NULL, premiereDate TIMESTAMP, thumbnailUrl VARCHAR (255), movieDescritpion TEXT, trailerUrl VARCHAR (255));".
 		"CREATE TABLE genres (id serial PRIMARY KEY, text VARCHAR (25) NOT NULL);".
 		"INSERT INTO genres(text) VALUES ('Action');".
@@ -153,6 +165,10 @@ final class Database
 		"insert into movie_genres(movie_id,genre_id) VALUES (14,9);".
 		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(genre_id) REFERENCES genres(id));".
 		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,8,'Dobry film', 'Jest wiele filmów, które potrafi¹ wywo³aæ ciarki na plecach b¹dŸ sprawiæ, ¿e serce zaczyna biæ szybciej lub ¿e pierœ wype³nia g³êboki oddech. Znajdzie siê tak¿e kilka produkcji, które wycisn¹ z oczu ³zy, albo wywo³aj¹ szczery uœmiech na twarzy', '2014-12-12');";
+		"CREATE TABLE users (id serial PRIMARY KEY, username VARCHAR (80) NOT NULL, password VARCHAR (80) NOT NULL);".
+		"insert into users (username, password) VALUES ('user', 'pass');".
+		"insert into users (username, password) VALUES ('Mariola', 'huragan');".
+		"insert into users (username, password) VALUES ('ktokolwiek', 'cokolwiek');";
 	
 
 	$queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/", $all_queries); 
@@ -240,5 +256,38 @@ class MovieEntity
 	public function __toString() {
         	return $this->title;
     	}
+}
+
+/**
+ * @Entity
+ */
+class UserEntity
+{
+	/**
+	* @ORM\Id()
+	* @ORM\Column(type="integer")
+	* @ORM\GeneratedValue(strategy="AUTO")
+	* @var int
+	*/
+	private $id;
+	public function getId() {
+		return $this->id;
+	}
+	
+	private $username;
+	public function getUsername() {
+		return $this->username;
+	}
+	
+	private $password;
+	public function getPassword() {
+		return $this->password;
+	}
+	
+	public function __construct($id, $username, $password) {
+		$this->id = $id;
+		$this->username = $username;
+		$this->password = $password;
+	}
 }
 ?>

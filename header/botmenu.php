@@ -3,6 +3,9 @@
 	$movie_id = htmlspecialchars($_GET["movie_id"]); 
 	$selected_genres = htmlspecialchars($_GET["genres"]); 
 	$movie = $database->getMovieDetails($movie_id);
+	session_start();
+	$uid = isset($_POST['uid']) ? $_POST['uid'] : $_SESSION['uid'];
+	$pwd = isset($_POST['pwd']) ? $_POST['pwd'] : $_SESSION['pwd'];
    ?>
 
 <div id="botmenu">
@@ -42,5 +45,22 @@
          </li>
          <li id="menu-item-883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-883"><a href="http://demo.fabthemes.com/edivos/blog/">Blog</a></li>
       </ul>
+
+	<?php
+	if (isset($_SESSION['uid'])) {
+	$uid = $_SESSION['uid'];
+	echo("Logged in as: ".$uid)
+	?>	
+	<a href="main/logout.php"><button type="button">Log out</button></a>
+	<?php  
+	} else {
+	?>
+	<a href="main/login.php"><button type="button">Log in</button></a>
+	<?php
+	}
+	?>
+	  
+	  
+      
    </div>
 </div>
