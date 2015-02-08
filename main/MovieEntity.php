@@ -69,6 +69,18 @@ final class Database
 	return $results;
     }
 
+    public function getMovieReviews($movie_id) 
+    {
+	$query = "SELECT * FROM reviews where movie_id=".$movie_id;
+	$sql_result = mysqli_query($this->conn, $query);
+	$results = array();
+	while($row = mysqli_fetch_array($sql_result))
+	{		
+		array_push($results,$row[0]);
+	}
+	return $results;
+    }
+
     public function getAllGenres() 
     {
 	$query = "SELECT * FROM genres";
@@ -85,6 +97,7 @@ final class Database
     public function createDbTables()
     {
  	$all_queries = "DROP TABLE movie_genres;".
+		"DROP TABLE reviews;".
 		"DROP TABLE movies;".
 		"DROP TABLE genres;".
 		"CREATE TABLE movies (id serial PRIMARY KEY, title VARCHAR (80) NOT NULL, premiereDate TIMESTAMP, thumbnailUrl VARCHAR (255), movieDescritpion TEXT, trailerUrl VARCHAR (255));".
@@ -137,8 +150,9 @@ final class Database
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,3);".
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,5);".
 		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Serena','2015-01-20','http://1.fwcdn.pl/contest/4651.4.jpg','George i Serena osiadają w Karolinie Północnej. Wykorzystując naturalne zasoby lasów, rozwijają imperium składów drewna. Serena, dzięki swojej przedsiębiorczości i kierowniczym umiejętnościom, może dorównać każdemu mężczyźnie w zarządzaniu posiadłością i majątkiem. Wspólnie z mężem stanowią znakomitą parę, której nic nie jest w stanie przeszkodzić w realizacji wspólnych planów i ambicji. Niestety przyszłość imperium składów drewna George’a Pembertona staje pod znakiem zapytania, kiedy okazuje się, że żona potentata jest bezpłodna. Wszystko wskazuje na to, że spadek przypadnie nieślubnemu synowi męża. Serena, nie zamierza pogodzić się z takim stanem rzeczy.','https://www.youtube.com/embed/lITvFNhoxek');".
-		"insert into movie_genres(movie_id,genre_id) VALUES (14,9);";
-
+		"insert into movie_genres(movie_id,genre_id) VALUES (14,9);".
+		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(genre_id) REFERENCES genres(id));".
+		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,8,'Dobry film', 'Jest wiele film�w, kt�re potrafi� wywo�a� ciarki na plecach b�d� sprawi�, �e serce zaczyna bi� szybciej lub �e pier� wype�nia g��boki oddech. Znajdzie si� tak�e kilka produkcji, kt�re wycisn� z oczu �zy, albo wywo�aj� szczery u�miech na twarzy', '2014-12-12');";
 	
 
 	$queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/", $all_queries); 
@@ -156,7 +170,6 @@ final class Database
         $database = "s168932";
 
 	$this->conn = mysqli_connect($servername, $username, $password, $database);
-	$this->createDbTables();
 	if (!$this->conn) {
 	    die('<div class="alert alert-danger" role="alert">Connection failed: '.mysqli_connect_error().'</div>');
 	}
