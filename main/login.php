@@ -28,6 +28,14 @@ if($database->validateUserPassword($uid,$pwd)) {
 		<head>
 		</head>
 		<body>
+		
+			<?php
+			if ($uid || $pwd) {
+				echo("<p>Wrong username or password. Try again.</p>");
+			};
+			
+			?>
+		
 			<form method="post" action="<?=$_SERVER['PHP_SELF']?>">
 				<p>User: <input type="text" class="field" name="uid" id="uid"></p>
 				<p>Password: <input type="password" class="field" name="pwd" id="pwd"></p>
