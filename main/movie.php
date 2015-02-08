@@ -23,8 +23,15 @@
       	echo '</a>';
       }
       ?>
-   </span>
+   </span>   
 </div>
+
+<?php 
+	if(isset($_SESSION['uid'])) {
+		echo '<h2><a href="'.$base.'/index.php/movie_review?movie_id='.$movie->getId().'" rel="bookmark"> Add review</a></h2>'; 
+	}
+?>
+
 <div class="clear"></div>
 <div id="main">
    <div id="content">

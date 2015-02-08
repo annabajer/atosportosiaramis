@@ -48,15 +48,11 @@
 
 	<?php
 	if (isset($_SESSION['uid'])) {
-	$uid = $_SESSION['uid'];
-	echo("Logged in as: ".$uid)
-	?>	
-	<a href="main/logout.php"><button type="button">Log out</button></a>
-	<?php  
+		$uid = $_SESSION['uid'];
+		echo("Logged in as: ".$uid);
+		echo '<a href="'.$base.'/main/logout.php"><button type="button">Log out</button></a>';
 	} else {
-	?>
-	<a href="main/login.php"><button type="button">Log in</button></a>
-	<?php
+		echo '<a href="'.$base.'/main/login.php"><button type="button">Log in</button></a>';
 	}
 	?>
 	  

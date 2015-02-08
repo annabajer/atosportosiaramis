@@ -103,6 +103,13 @@ final class Database
 			return false;
 		}
 	}
+	
+	public function addReview($movie_id,$user_id,$stars,$title,$text,$date)
+	{
+		$query = "insert into reviews(movie_id,user_id,stars,title,text,date) VALUES ('".$movie_id."','".$user_id."','".$stars."','".$title."', '".$text."', '".$date."');";
+		//echo ($query);
+		mysqli_query($this->conn, $query);
+	}
 
 
     public function createDbTables()
