@@ -1,7 +1,8 @@
+
 <div class="top">
    <div class="logo">
       <a href="/" title="Atos Portos i Aramis" rel="home">
-         <img src="images/atos-portos-aramis-logo.png">
+         <img src="<?php echo $base; ?>/images/atos-portos-aramis-logo.png">
       </a>
    <div id="searchbox">
       <div class="supra">

@@ -1,8 +1,9 @@
 <html lang="en-US">
 		
-   <?php include 'header/head.php';
+   <?php $base_with_index = pathinfo($_SERVER['PHP_SELF'])['dirname'];
+	 $base = str_replace("/index.php","",pathinfo($_SERVER['PHP_SELF'])['dirname']);
+	 include 'header/head.php';
 	 include 'main/MovieEntity.php';
-	$base = pathinfo($_SERVER['PHP_SELF'])['dirname'];
    ?>
    <body class="home blog">
       <div id="wrapper">
@@ -15,14 +16,14 @@
 		$uri = $_SERVER["REQUEST_URI"];
 		$uri_no_param = explode('?', $uri)[0];
 		switch ($uri_no_param) {
-		case $base:
+		case $base_with_index:
 			include "main/slider.php";
 			include "main/fullcontent.php";
 			break;
-		case $base."/movie_review":
+		case $base_with_index."/movie_review":
 			include "main/movie_review.php";
 			break;
-		case $base."/movie":
+		case $base_with_index."/movie":
 			include "main/movie.php";
 			break;	
 		default:

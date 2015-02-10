@@ -4,7 +4,6 @@
       <meta name="viewport" content="width=device-width">
       <title>Wypożyczalnia video Atos Portos i Aramis</title>
       <link href="http://fonts.googleapis.com/css?family=Lato:400,900,700" rel="stylesheet" type="text/css">
-      <?php $base = str_replace("/index.php","",pathinfo($_SERVER['PHP_SELF'])['dirname']); ?>
       <!--[if lt IE 9]>
       <script src="../js/html5.js" type="text/javascript"></script>
       <![endif]-->
