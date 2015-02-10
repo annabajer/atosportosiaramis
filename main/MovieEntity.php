@@ -92,6 +92,24 @@ final class Database
 	}
 	return $results;
     }
+	
+	public function validateUserPassword($user, $pass)
+	{
+		$query = "SELECT * from users where username='".$user."' and password='".$pass."';";
+		$sql_result = mysqli_query($this->conn, $query);
+		if (mysqli_fetch_array($sql_result)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public function addReview($movie_id,$user_id,$stars,$title,$text,$date)
+	{
+		$query = "insert into reviews(movie_id,user_id,stars,title,text,date) VALUES ('".$movie_id."','".$user_id."','".$stars."','".$title."', '".$text."', '".$date."');";
+		//echo ($query);
+		mysqli_query($this->conn, $query);
+	}
 
 
     public function createDbTables()
@@ -100,6 +118,7 @@ final class Database
 		"DROP TABLE reviews;".
 		"DROP TABLE movies;".
 		"DROP TABLE genres;".
+		"DROP TABLE users;".
 		"CREATE TABLE movies (id serial PRIMARY KEY, title VARCHAR (80) NOT NULL, premiereDate TIMESTAMP, thumbnailUrl VARCHAR (255), movieDescritpion TEXT, trailerUrl VARCHAR (255));".
 		"CREATE TABLE genres (id serial PRIMARY KEY, text VARCHAR (25) NOT NULL);".
 		"INSERT INTO genres(text) VALUES ('Action');".
@@ -154,6 +173,10 @@ final class Database
 		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
 		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,8,'Dobry film', 'Jest wiele filmów, które potrafią wywołać ciarki na plecach bądź sprawić, że serce zaczyna bić szybciej lub że pierś wypełnia głęboki oddech. Znajdzie się także kilka produkcji, które wycisną z oczu łzy, albo wywołają szczery uśmiech na twarzy', '2014-12-12');".
 		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,8,'Każdy ma swojego Szerloka..', 'Nazwanie Franka Darabonta mistrzem w przenoszeniu prozy Stephena Kinga na ekran nie powinno nikogo dziwić. Dlaczego? Ponieważ jak do tej pory tylko on pokusił się to zrobić, a druga sprawa, że wyszło mu to świetnie i prawie bezbłędnie. Dwa filmy - najpierw Skazani na Shawshank, a potem Zielona Mila przyniosły temu Francuzowi uznanie widzów i rozpoznawalność.', '2015-01-02');";
+		"CREATE TABLE users (id serial PRIMARY KEY, username VARCHAR (80) NOT NULL, password VARCHAR (80) NOT NULL);".
+		"insert into users (username, password) VALUES ('user', 'pass');".
+		"insert into users (username, password) VALUES ('Mariola', 'huragan');".
+		"insert into users (username, password) VALUES ('ktokolwiek', 'cokolwiek');";
 	
 
 
@@ -243,5 +266,38 @@ class MovieEntity
 	public function __toString() {
         	return $this->title;
     	}
+}
+
+/**
+ * @Entity
+ */
+class UserEntity
+{
+	/**
+	* @ORM\Id()
+	* @ORM\Column(type="integer")
+	* @ORM\GeneratedValue(strategy="AUTO")
+	* @var int
+	*/
+	private $id;
+	public function getId() {
+		return $this->id;
+	}
+	
+	private $username;
+	public function getUsername() {
+		return $this->username;
+	}
+	
+	private $password;
+	public function getPassword() {
+		return $this->password;
+	}
+	
+	public function __construct($id, $username, $password) {
+		$this->id = $id;
+		$this->username = $username;
+		$this->password = $password;
+	}
 }
 ?>

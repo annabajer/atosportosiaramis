@@ -1,7 +1,8 @@
 <div class="top">
    <div class="logo">
-      <h1><a href="http://demo.fabthemes.com/edivos/" title="edivos" rel="home">Atos Portos i Aramis</a></h1>
-   </div>
+      <a href="/" title="Atos Portos i Aramis" rel="home">
+         <img src="images/atos-portos-aramis-logo.png">
+      </a>
    <div id="searchbox">
       <div class="supra">
          <ul class="social">

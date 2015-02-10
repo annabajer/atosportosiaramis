@@ -19,8 +19,8 @@
 			include "main/slider.php";
 			include "main/fullcontent.php";
 			break;
-		case $base."/movie_review":
-			include "main/movie_review.php";
+		case $base./"movie_review":
+			include "main/movie_review.php"
 			break;
 		case $base."/movie":
 			include "main/movie.php";
