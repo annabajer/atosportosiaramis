@@ -76,7 +76,7 @@ final class Database
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
 	{		
-		array_push($results,$row[0]);
+		array_push($results,$row);
 	}
 	return $results;
     }
@@ -149,11 +149,13 @@ final class Database
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,1);".
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,3);".
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,5);".
-		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Serena','2015-01-20','http://1.fwcdn.pl/contest/4651.4.jpg','George i Serena osiadają w Karolinie Północnej. Wykorzystując naturalne zasoby lasów, rozwijają imperium składów drewna. Serena, dzięki swojej przedsiębiorczości i kierowniczym umiejętnościom, może dorównać każdemu mężczyźnie w zarządzaniu posiadłością i majątkiem. Wspólnie z mężem stanowią znakomitą parę, której nic nie jest w stanie przeszkodzić w realizacji wspólnych planów i ambicji. Niestety przyszłość imperium składów drewna George’a Pembertona staje pod znakiem zapytania, kiedy okazuje się, że żona potentata jest bezpłodna. Wszystko wskazuje na to, że spadek przypadnie nieślubnemu synowi męża. Serena, nie zamierza pogodzić się z takim stanem rzeczy.','https://www.youtube.com/embed/lITvFNhoxek');".
+		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Serena','2015-01-20','http://1.fwcdn.pl/contest/4651.4.jpg','George i Serena osiadajÄ… w Karolinie PĂłĹ‚nocnej. WykorzystujÄ…c naturalne zasoby lasĂłw, rozwijajÄ… imperium skĹ‚adĂłw drewna. Serena, dziÄ™ki swojej przedsiÄ™biorczoĹ›ci i kierowniczym umiejÄ™tnoĹ›ciom, moĹĽe dorĂłwnaÄ‡ kaĹĽdemu mÄ™ĹĽczyĹşnie w zarzÄ…dzaniu posiadĹ‚oĹ›ciÄ… i majÄ…tkiem. WspĂłlnie z mÄ™ĹĽem stanowiÄ… znakomitÄ… parÄ™, ktĂłrej nic nie jest w stanie przeszkodziÄ‡ w realizacji wspĂłlnych planĂłw i ambicji. Niestety przyszĹ‚oĹ›Ä‡ imperium skĹ‚adĂłw drewna Georgeâ€™a Pembertona staje pod znakiem zapytania, kiedy okazuje siÄ™, ĹĽe ĹĽona potentata jest bezpĹ‚odna. Wszystko wskazuje na to, ĹĽe spadek przypadnie nieĹ›lubnemu synowi mÄ™ĹĽa. Serena, nie zamierza pogodziÄ‡ siÄ™ z takim stanem rzeczy.','https://www.youtube.com/embed/lITvFNhoxek');".
 		"insert into movie_genres(movie_id,genre_id) VALUES (14,9);".
-		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(genre_id) REFERENCES genres(id));".
-		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,8,'Dobry film', 'Jest wiele film�w, kt�re potrafi� wywo�a� ciarki na plecach b�d� sprawi�, �e serce zaczyna bi� szybciej lub �e pier� wype�nia g��boki oddech. Znajdzie si� tak�e kilka produkcji, kt�re wycisn� z oczu �zy, albo wywo�aj� szczery u�miech na twarzy', '2014-12-12');";
+		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
+		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,8,'Dobry film', 'Jest wiele filmów, które potrafią wywołać ciarki na plecach bądź sprawić, że serce zaczyna bić szybciej lub że pierś wypełnia głęboki oddech. Znajdzie się także kilka produkcji, które wycisną z oczu łzy, albo wywołają szczery uśmiech na twarzy', '2014-12-12');".
+		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,8,'Każdy ma swojego Szerloka..', 'Nazwanie Franka Darabonta mistrzem w przenoszeniu prozy Stephena Kinga na ekran nie powinno nikogo dziwić. Dlaczego? Ponieważ jak do tej pory tylko on pokusił się to zrobić, a druga sprawa, że wyszło mu to świetnie i prawie bezbłędnie. Dwa filmy - najpierw Skazani na Shawshank, a potem Zielona Mila przyniosły temu Francuzowi uznanie widzów i rozpoznawalność.', '2015-01-02');";
 	
+
 
 	$queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/", $all_queries); 
 	foreach ($queries as $query){ 
@@ -170,6 +172,7 @@ final class Database
         $database = "s168932";
 
 	$this->conn = mysqli_connect($servername, $username, $password, $database);
+	$this->createDbTables();
 	if (!$this->conn) {
 	    die('<div class="alert alert-danger" role="alert">Connection failed: '.mysqli_connect_error().'</div>');
 	}

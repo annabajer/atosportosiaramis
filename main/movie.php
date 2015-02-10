@@ -22,31 +22,38 @@
       	echo $genre;
       	echo '</a>';
       }
-      ?>
+    ?>
    </span>
 </div>
 <div class="clear"></div>
+
 <div id="main">
    <div id="content">
-      <div class="post" id="post-53">
-         <div class="title">
-            <h2><a href="http://demo.fabthemes.com/edivos/2012/06/09/aenean-velit-risus-venenatis-sed-pellentesque-ege/" rel="bookmark" title="Permanent Link to Aenean velit risus, venenatis sed pellentesque ege">Aenean velit risus, venenatis sed pellentesque ege</a></h2>
-         </div>
-         <div class="postmeta">
-            <span>Posted by <a href="http://demo.fabthemes.com/edivos/author/admin/" title="Posts by admin" rel="author">admin</a></span> | <span>Saturday, 6 June 2012</span> 
-         </div>
-         <div class="entry">
-            <a href="http://demo.fabthemes.com/edivos/2012/06/09/aenean-velit-risus-venenatis-sed-pellentesque-ege/"><img class="post-image" src="http://cdn.demo.fabthemes.com/edivos/files/2012/06/p9-180x120.jpg"></a>	
-            <p>Ut sit amet odio erat, ut rhoncus libero. Maecenas vestibulum dui et urna fringilla pulvinar at ornare nibh. Nam et scelerisque lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam quis neque et elit congue luctus. Sed ultrices tellus at dui pellentesque vulputate? Phasellus molestie tincidunt convallis. Nullam turpis […]</p>
-            <div class="clear"></div>
-         </div>
-         <div class="clear"></div>
-      </div>
+      <?php 
+	$reviews = $database->getMovieReviews($movie_id); 
+	foreach ($reviews as $review) {
+		echo '<div class="post">';
+		echo '	<div class="title"><h2><a href="" rel="bookmark">'.$review[4].'</a></h2></div>';
+		echo '	<div class="postmeta"><span>Posted by <a href="" rel="author">'.$review[3].'</a></span> | <span>'.$review[6].'</span></div>';
+		echo '	<a href=""><img class="post-image" width="130px" src="http://at-cdn-s01.audiotool.com/2013/05/11/users/guess_audiotool/avatar256x256-709d163bfa4a4ebdb25160d094551c33.jpg"></a>';	
+		echo '	<p>'.$review[5].'</p>';
+		echo '  <div id="sidebar">';
+		echo '<div class="movie_choice">';
+		echo '    <div id="r1" class="rate_widget">';
+		echo '        <div class="star_1 ratings_stars"></div>';
+		echo '        <div class="star_2 ratings_stars"></div>';
+		echo '        <div class="star_3 ratings_stars"></div>';
+		echo '        <div class="star_4 ratings_stars"></div>';
+		echo '        <div class="star_5 ratings_stars"></div>';
+		echo '        <div class="total_votes">vote data</div>';
+		echo '    </div>';
+		echo '</div>';
+		echo '  </div>';	
+		echo '</div>';
+		
+	}
+      ?>
 
-
-      <div id="navigation" class="clearfix">
-      </div>
    </div>
-   <div id="sidebar"></div>
    <div class="clear"></div>
 </div>
