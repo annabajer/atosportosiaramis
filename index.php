@@ -36,6 +36,5 @@
 	 <?php include 'footer/bottom.php' ?>
 	 <?php include 'footer/footer.php' ?>
       </div>
-      <script type="text/javascript" src="js/carousel.js?ver=20120206"></script>  
    </body>
 </html>

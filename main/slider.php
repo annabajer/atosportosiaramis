@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo $base; ?>/js/custom.js?ver=1"></script>
 <div id="slider">
    <div class="topslider" style="visibility: visible; overflow: hidden; position: relative; z-index: 2; left: 0px; width: 1350px;">
       <div class="next">Next</div>

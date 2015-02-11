@@ -10,9 +10,8 @@
       <link rel="stylesheet" id="style-css" href="<?php echo $base; ?>/style.css" type="text/css" media="all">
       <link rel="stylesheet" id="stars-css" href="<?php echo $base; ?>/stars.css" type="text/css" media="all">
       <link rel="stylesheet" id="wp-pagenavi-css" href="http://cdn.demo.fabthemes.com/edivos/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70" type="text/css" media="all">
-
       <script type="text/javascript" src="<?php echo $base; ?>/js/jquery-1.11.2.min.js"></script>
-      <script type="text/javascript" src="<?php echo $base; ?>/js/custom.js?ver=1"></script>
+      <script type="text/javascript" src="<?php echo $base; ?>/js/carousel.js"></script>  
       <meta name="generator" content="WordPress 4.1">
   </head>
 
