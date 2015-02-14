@@ -18,7 +18,7 @@ final class Database
 
     public function getSliderMovies() 
     {
-	$query = "SELECT * FROM movies";
+	$query = "SELECT id serial, title, DATE_FORMAT(premiereDate,'%Y-%m-%d'), thumbnailUrl, movieDescritpion, trailerUrl FROM movies";
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
@@ -31,7 +31,7 @@ final class Database
     public function getFullContentMovies($genre = NULL) 
     {
 	if ($genre == NULL) {
-		$query = "SELECT * FROM movies";
+		$query = "SELECT id serial, title, DATE_FORMAT(premiereDate,'%Y-%m-%d'), thumbnailUrl, movieDescritpion, trailerUrl FROM movies";
 	} else {
 		$query = "SELECT DISTINCT movies.* FROM movies inner join movie_genres on movie_genres.movie_id=movies.id where movie_genres.genre_id in (".$genre.")";
 	}
@@ -47,7 +47,7 @@ final class Database
 
     public function getMovieDetails($movie_id) 
     {
-	$query = 'SELECT * FROM movies where id='.$movie_id;
+	$query = 'SELECT id serial, title, DATE_FORMAT(premiereDate,"%Y-%m-%d"), thumbnailUrl, movieDescritpion, trailerUrl FROM movies where id='.$movie_id;
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
