@@ -44,12 +44,18 @@
              </ul>
          </li>
          <li id="menu-item-883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-883"><a href="http://demo.fabthemes.com/edivos/blog/">Blog</a></li>
-      </ul>
+      	 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-883">
+		<?php 
+			if (isset($_SESSION['uid'])) {
+				$uid = $_SESSION['uid']; 
+				echo 'Logged is as:<BR>'.$uid; 
+			}
+		?>
+	 </li>
+	</ul>
 
 	<?php
 	if (isset($_SESSION['uid'])) {
-		$uid = $_SESSION['uid'];
-		echo("Logged in as: ".$uid);
 		echo '<a href="'.$base.'/main/logout.php"><button type="button">Log out</button></a>';
 	} else {
 		echo '<a href="'.$base.'/main/login.php"><button type="button">Log in</button></a>';

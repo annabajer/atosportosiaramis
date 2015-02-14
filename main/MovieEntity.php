@@ -127,7 +127,7 @@ final class Database
     public function createDbTables()
     {
  	$all_queries = "DROP TABLE movie_genres;".
-		"DROP TABLE reviews;".
+		//"DROP TABLE reviews;".
 		"DROP TABLE movies;".
 		"DROP TABLE genres;".
 		"DROP TABLE users;".
@@ -180,11 +180,11 @@ final class Database
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,1);".
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,3);".
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,5);".
-		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Serena','2015-01-20','http://1.fwcdn.pl/contest/4651.4.jpg','George i Serena osiadajÄ… w Karolinie PĂłĹ‚nocnej. WykorzystujÄ…c naturalne zasoby lasĂłw, rozwijajÄ… imperium skĹ‚adĂłw drewna. Serena, dziÄ™ki swojej przedsiÄ™biorczoĹ›ci i kierowniczym umiejÄ™tnoĹ›ciom, moĹĽe dorĂłwnaÄ‡ kaĹĽdemu mÄ™ĹĽczyĹşnie w zarzÄ…dzaniu posiadĹ‚oĹ›ciÄ… i majÄ…tkiem. WspĂłlnie z mÄ™ĹĽem stanowiÄ… znakomitÄ… parÄ™, ktĂłrej nic nie jest w stanie przeszkodziÄ‡ w realizacji wspĂłlnych planĂłw i ambicji. Niestety przyszĹ‚oĹ›Ä‡ imperium skĹ‚adĂłw drewna Georgeâ€™a Pembertona staje pod znakiem zapytania, kiedy okazuje siÄ™, ĹĽe ĹĽona potentata jest bezpĹ‚odna. Wszystko wskazuje na to, ĹĽe spadek przypadnie nieĹ›lubnemu synowi mÄ™ĹĽa. Serena, nie zamierza pogodziÄ‡ siÄ™ z takim stanem rzeczy.','https://www.youtube.com/embed/lITvFNhoxek');".
+		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Serena','2015-01-20','http://1.fwcdn.pl/contest/4651.4.jpg','Ut sit amet odio erat, ut rhoncus libero. Maecenas vestibulum dui et urna fringilla pulvinar at ornare nibh. Nam et scelerisque lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam quis neque et elit congue luctus. Sed ultrices tellus at dui pellentesque vulputate? Phasellus molestie tincidunt convallis. Nullam turpi.','https://www.youtube.com/embed/lITvFNhoxek');".
 		"insert into movie_genres(movie_id,genre_id) VALUES (14,9);".
-		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
-		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,4,'Dobry film', 'Jest wiele filmów, które potrafią wywołać ciarki na plecach bądź sprawić, że serce zaczyna bić szybciej lub że pierś wypełnia głęboki oddech. Znajdzie się także kilka produkcji, które wycisną z oczu łzy, albo wywołają szczery uśmiech na twarzy', '2014-12-12');".
-		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,2,3,'Każdy ma swojego Szerloka..', 'Nazwanie Franka Darabonta mistrzem w przenoszeniu prozy Stephena Kinga na ekran nie powinno nikogo dziwić. Dlaczego? Ponieważ jak do tej pory tylko on pokusił się to zrobić, a druga sprawa, że wyszło mu to świetnie i prawie bezbłędnie. Dwa filmy - najpierw Skazani na Shawshank, a potem Zielona Mila przyniosły temu Francuzowi uznanie widzów i rozpoznawalność.', '2015-01-02');";
+		//"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
+		//"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,4,'Dobry film', 'Jest wiele filmów, które potrafią wywołać ciarki na plecach bądź sprawić, że serce zaczyna bić szybciej lub że pierś wypełnia głęboki oddech. Znajdzie się także kilka produkcji, które wycisną z oczu łzy, albo wywołają szczery uśmiech na twarzy', '2014-12-12');".
+		//"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,2,3,'Każdy ma swojego Szerloka..', 'Nazwanie Franka Darabonta mistrzem w przenoszeniu prozy Stephena Kinga na ekran nie powinno nikogo dziwić. Dlaczego? Ponieważ jak do tej pory tylko on pokusił się to zrobić, a druga sprawa, że wyszło mu to świetnie i prawie bezbłędnie. Dwa filmy - najpierw Skazani na Shawshank, a potem Zielona Mila przyniosły temu Francuzowi uznanie widzów i rozpoznawalność.', '2015-01-02');".
 		"CREATE TABLE users (id serial PRIMARY KEY, username VARCHAR (80) NOT NULL, password VARCHAR (80) NOT NULL);".
 		"insert into users (username, password) VALUES ('user', 'pass');".
 		"insert into users (username, password) VALUES ('Mariola', 'huragan');".

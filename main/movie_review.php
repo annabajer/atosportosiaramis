@@ -12,17 +12,32 @@ if (isset($rec_title) && isset($rec_stars) && isset($rec_text)) {
 	<?php
 } else {
 	?>
+<div class="post">
+
 	<h2>Your review</h2>
 	  <p>Fill out the form below.</p>
 	  <form action="" method="post">
 	  <label>Title: <br />
-	  <input name="rec_title" type="text" value="" /><br /></label>
+	  <input name="rec_title" type="text" value="" class="field"/><br /></label>
 	  <label>Stars: <br />
-	  <input name="rec_stars" type="text" value="" /><br /></label>
+	  <select name="rec_stars">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3" selected>3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	  </select><br />
+	  </label>
 	  <label>Text: <br />
-	  <input name="rec_text" type="text" value="" /><br /></label>
-	  <input name="" type="reset" value="Reset Form" /><input name="submitted" type="submit" value="Submit" />
+	  <textarea name="rec_text" cols="30" rows="5"></textarea>
+	  <p>
+	  	<input name="" type="reset" value="Reset Form" /><input name="submitted" type="submit" value="Submit" /></br>
+	  </p>
 	  </form>
+
+</div>
+
 	<?php
 }  
+
 ?>

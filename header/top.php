@@ -7,9 +7,9 @@
    <div id="searchbox">
       <div class="supra">
          <ul class="social">
-            <li class="facebook"> <a href=""> Facebok </a> </li>
-            <li class="feed"> <a href="http://demo.fabthemes.com/edivos/feed/"> RSS </a> </li>
-            <li class="twitter"> <a href=" https://twitter.com/twitter "> Twitter </a> </li>
+            <li class="facebook"> <a href="https://www.facebook.com/uczelnia.sukcesu"> Facebok </a> </li>
+            <li class="feed"> <a href="http://www.uek.krakow.pl/rss/feed/pl/aktualnosci"> RSS </a> </li>
+            <li class="twitter"> <a href="https://twitter.com/uek_krakow"> Twitter </a> </li>
          </ul>
       </div>
       <form method="get" id="searchform" action="http://demo.fabthemes.com/edivos/" role="search">

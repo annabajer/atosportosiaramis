@@ -136,7 +136,10 @@
 <?php 
 	if(isset($_SESSION['uid'])) {
 		echo '<h2><a href="'.$base.'/index.php/movie_review?movie_id='.$movie->getId().'" rel="bookmark"> Add review</a></h2>'; 
-	}
+	} else
+	{
+		echo '<h2>To add review you must be <a href="'.$base.'/main/logout.php" rel="bookmark">logged</a></h2>'; 		
+	};
 ?>
 
 <div class="clear"></div>
