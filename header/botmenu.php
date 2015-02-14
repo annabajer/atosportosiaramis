@@ -56,9 +56,9 @@
 
 	<?php
 	if (isset($_SESSION['uid'])) {
-		echo '<a href="'.$base.'/main/logout.php"><button type="button">Log out</button></a>';
+		echo '<a href="'.$base.'/index.php/logout"><button type="button">Log out</button></a>';
 	} else {
-		echo '<a href="'.$base.'/main/login.php"><button type="button">Log in</button></a>';
+		echo '<a href="'.$base.'/index.php/login"><button type="button">Log in</button></a>';
 	}
 	?>
 	  

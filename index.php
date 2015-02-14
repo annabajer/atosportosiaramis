@@ -26,6 +26,12 @@
 		case $base_with_index."/movie":
 			include "main/movie.php";
 			break;	
+		case $base_with_index."/login":
+			include "main/login.php";
+			break;
+		case $base_with_index."/logout":
+			include "main/logout.php";
+			break;
 		default:
 			include "main/slider.php";
 		    include "main/fullcontent.php";

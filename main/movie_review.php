@@ -7,13 +7,21 @@ if (isset($rec_title) && isset($rec_stars) && isset($rec_text)) {
 	$database = Database::getInstance();
 	$database->addReview($movie->getId(),1, $rec_stars, $rec_title, $rec_text, date("Y-m-d"));
 	?>
+<div class="post">
+<br />
+	<h2>Your review</h2>
 	<p>Your review has been submitted.</p>
-	<p><a href="../index.php">Return</a></p>
+	<p>
+   	<span class="genretag clearfix">
+	<?php echo '<a href="../index.php/movie?movie_id='.$movie->getId().'">Return</a>' ?>
+	</span>
+	</p>
+</div><br />
 	<?php
 } else {
 	?>
 <div class="post">
-
+<br />
 	<h2>Your review</h2>
 	  <p>Fill out the form below.</p>
 	  <form action="" method="post">
@@ -31,11 +39,12 @@ if (isset($rec_title) && isset($rec_stars) && isset($rec_text)) {
 	  <label>Text: <br />
 	  <textarea name="rec_text" cols="30" rows="5"></textarea>
 	  <p>
-	  	<input name="" type="reset" value="Reset Form" /><input name="submitted" type="submit" value="Submit" /></br>
+	  	<input name="" type="reset" value="Reset Form" /><input name="submitted" type="submit" value="Submit" /><br/>
 	  </p>
+	  </label>
 	  </form>
 
-</div>
+</div><br />
 
 	<?php
 }  

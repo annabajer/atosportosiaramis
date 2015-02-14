@@ -954,8 +954,7 @@ a img.video-image {
 }
 
 .genretag a{
-	display:block;
-	float:left;
+
 	background:#ff0000;
 	padding:3px 10px;
 	margin-right:5px;
