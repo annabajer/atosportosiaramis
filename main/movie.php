@@ -125,8 +125,8 @@
    <?php 
       $genres = $database->getMovieGenre($movie_id);
       foreach ($genres as $genre) { 
-      	echo '<a href="" rel="tag">';
-      	echo $genre;
+      	echo '<a href="'.$base.'/index.php?genres='.$genre[1].'" rel="tag">';
+      	echo $genre[0];
       	echo '</a>';
       }
     ?>

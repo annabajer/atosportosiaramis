@@ -59,12 +59,12 @@ final class Database
 
     public function getMovieGenre($movie_id) 
     {
-	$query = "SELECT genres.text FROM movie_genres inner join genres on genres.id=movie_genres.genre_id where movie_genres.movie_id=".$movie_id;
+	$query = "SELECT genres.text,genres.id FROM movie_genres inner join genres on genres.id=movie_genres.genre_id where movie_genres.movie_id=".$movie_id;
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
 	{		
-		array_push($results,$row[0]);
+		array_push($results,$row);
 	}
 	return $results;
     }
