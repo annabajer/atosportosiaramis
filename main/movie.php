@@ -103,17 +103,19 @@
    <?php echo '<span class="clock">'.$movie->getPremiereDate().'</span>'; ?>
 </div>
 <?php
-		$quality = $database->getMovieReviewAvg($movie_id); 
-		echo '	  <div class="movie_choice">';
-		echo '     <div id="r_arg" class="rate_widget_show">';
-		echo '        <div class="star_1 ratings_stars_show"></div>';
-		echo '        <div class="star_2 ratings_stars_show"></div>';
-		echo '        <div class="star_3 ratings_stars_show"></div>';
-		echo '        <div class="star_4 ratings_stars_show"></div>';
-		echo '        <div class="star_5 ratings_stars_show"></div>';
-		echo '        <div class="total_votes"></div>';
-		echo '     </div>';
-		echo '	  </div>';
+		$quality = $database->getMovieReviewAvg($movie_id);
+		if ($quality[2]!=0) { 
+			echo '	  <div class="movie_choice">';
+			echo '     <div id="r_arg" class="rate_widget_show">';
+			echo '        <div class="star_1 ratings_stars_show"></div>';
+			echo '        <div class="star_2 ratings_stars_show"></div>';
+			echo '        <div class="star_3 ratings_stars_show"></div>';
+			echo '        <div class="star_4 ratings_stars_show"></div>';
+			echo '        <div class="star_5 ratings_stars_show"></div>';
+			echo '        <div class="total_votes"></div>';
+			echo '     </div>';
+			echo '	  </div>';
+		}
 	echo '<script>set_votes3("#r_arg",'.$quality[0].','.$quality[1].','.$quality[2].')</script>';
 ?>
 <div class="entry">
