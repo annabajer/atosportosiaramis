@@ -5,7 +5,7 @@ $rec_text = $_POST['rec_text'];
 
 if (isset($rec_title) && isset($rec_stars) && isset($rec_text)) {
 	$database = Database::getInstance();
-	$database->addReview($movie->getId(),1, $rec_stars, $rec_title, $rec_text, date("Y-m-d"));
+	$database->addReview($movie->getId(),$_SESSION['uid'], $rec_stars, $rec_title, $rec_text, date("Y-m-d"));
 	?>
 <div class="post">
 <br />

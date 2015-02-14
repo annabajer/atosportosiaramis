@@ -104,7 +104,7 @@
 </div>
 <?php
 		$quality = $database->getMovieReviewAvg($movie_id);
-		if ($quality[2]!=0) { 
+		if ($quality[2] != 0) { 
 			echo '	  <div class="movie_choice">';
 			echo '     <div id="r_arg" class="rate_widget_show">';
 			echo '        <div class="star_1 ratings_stars_show"></div>';

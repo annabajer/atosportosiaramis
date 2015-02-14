@@ -71,7 +71,7 @@ final class Database
 
     public function getMovieReviews($movie_id) 
     {
-	$query = "SELECT * FROM reviews where movie_id=".$movie_id;
+	$query = "SELECT id, movie_id, (select username from users where id=reviews.user_id), stars, title, text, date FROM reviews where movie_id=".$movie_id;
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
@@ -116,10 +116,11 @@ final class Database
 		}
 	}
 	
-	public function addReview($movie_id,$user_id,$stars,$title,$text,$date)
+	public function addReview($movie_id,$user_name,$stars,$title,$text,$date)
 	{
-		$query = "insert into reviews(movie_id,user_id,stars,title,text,date) VALUES ('".$movie_id."','".$user_id."','".$stars."','".$title."', '".$text."', '".$date."');";
-		//echo ($query);
+		
+		$query = "insert into reviews(movie_id,user_id,stars,title,text,date) VALUES ('".$movie_id."',(select id from users where username='".$user_name."'),'".$stars."','".$title."', '".$text."', '".$date."');";
+		echo ($query);
 		mysqli_query($this->conn, $query);
 	}
 

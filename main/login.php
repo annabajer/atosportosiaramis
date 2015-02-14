@@ -11,9 +11,10 @@ if($database->validateUserPassword($uid,$pwd)) {
 	
 	?>
 <div class="post">
-			<h2>Login</h2>
-			<span class="genretag clearfix"><a href="../index.php">Return</a></span></BR>
-</div>
+<BR/>
+			<h2>Login success</h2>
+			<span class="genretag clearfix"><a href="../index.php">Return</a></span>
+</div><BR/>
 	<?php
 
 } else {
