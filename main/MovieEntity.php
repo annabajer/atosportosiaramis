@@ -116,6 +116,7 @@ final class Database
 	$query = "UPDATE borrows SET return_date=now() where movie_id=".$movie_id." and return_date='0000-00-00 00:00:00';";
 	$sql_result = mysqli_query($this->conn, $query);
     }
+
 	public function isBorrowed($movie_id)
 	{
 		$query = "SELECT user_id from borrows where movie_id='".$movie_id."' and return_date='0000-00-00 00:00:00';";
@@ -136,6 +137,17 @@ final class Database
 		return $row[0];
 	}
 	
+	public function whatBorrowed($user_id)
+	{
+		$query = "select users.username,movies.title,borrows.borrow_date,borrows.return_date from borrows join users on users.id=borrows.user_id join movies on borrows.movie_id=movies.id where users.username='".$user_id."';";
+		$sql_result = mysqli_query($this->conn, $query);
+		$results = array();
+		while($row = mysqli_fetch_array($sql_result))
+		{		
+			array_push($results,$row);
+		}
+		return $results;
+	}
 	
 	public function validateUserPassword($user, $pass)
 	{

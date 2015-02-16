@@ -32,6 +32,9 @@
 		case $base_with_index."/logout":
 			include "main/logout.php";
 			break;
+		case $base_with_index."/account":
+			include "main/account.php";
+			break;
 		default:
 			include "main/slider.php";
 		    include "main/fullcontent.php";
