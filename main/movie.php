@@ -1,5 +1,17 @@
-<script>
+<?php
+	if (isset($_GET['action'])){
+		switch($_GET['action']) {
+			case 'borrow' :
+				$database->borrowMovie($movie_id,$uid);
+			break;
+			case 'return' :
+				$database->returnMovie($movie_id);
+			break;
+		}
+	} 
+?>
 
+<script>
     // This is the first thing we add ------------------------------------------
     $(document).ready(function() {
         
@@ -137,14 +149,29 @@
 
 <div class="entry">
    <span class="genretag clearfix">
+	<h2>
 <?php 
 	if(isset($_SESSION['uid'])) {
-		echo '<h2><a href="'.$base.'/index.php/movie_review?movie_id='.$movie->getId().'" rel="bookmark"> Add review</a></h2>'; 
+		echo '<a href="'.$base.'/index.php/movie_review?movie_id='.$movie->getId().'" rel="bookmark"> Add review</a>'; 
+		if (!$database->isBorrowed($movie_id)) {
+			echo '<a href="'.$base.'/index.php/movie?movie_id='.$movie->getId().'&action=borrow" rel="bookmark"> Borrow this movie</a>'; 
+		}
+		else
+		{
+			$whoHas = $database->whoBorrowed($movie_id);
+			if ($whoHas == $uid) {
+				echo '<a href="'.$base.'/index.php/movie?movie_id='.$movie->getId().'&action=return" rel="bookmark"> Return this movie</a>'; 
+			} else
+			{
+				echo ' Movie is borrowed by "'.$whoHas.'"';
+			}
+		}
 	} else
 	{
-		echo '<h2>To add review you must be <a href="'.$base.'/index.php/login" rel="bookmark">logged</a></h2>'; 		
+		echo 'To borrow movie, return it or add review you must be <a href="'.$base.'/index.php/login" rel="bookmark">logged</a>'; 		
 	};
 ?>
+</h2>
 </span>
 </div>
 

@@ -11,6 +11,7 @@
 <div id="botmenu">
    <div id="submenu" class="menu-primary-container">
       <ul id="web2feel" class="sfmenu">
+<!--
          <li id="menu-item-72" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-72"><a href="http://demo.fabthemes.com/edivos/category/finance/">Finance</a></li>
          <li id="menu-item-73" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-73"><a href="http://demo.fabthemes.com/edivos/category/religion/">Religion</a></li>
          <li id="menu-item-74" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-74"><a href="http://demo.fabthemes.com/edivos/category/sports/">Sports</a></li>
@@ -29,7 +30,9 @@
                <li id="menu-item-80" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-80"><a href="http://demo.fabthemes.com/edivos/category/vintage/">Vintage</a></li>
             </ul>
          </li>
-         <li id="menu-item-880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-880">
+-->
+
+         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-880">
             <a href="#">Genre</a>
             <ul class="sub-menu">
 		<?php 
@@ -43,12 +46,13 @@
 		?>
              </ul>
          </li>
-         <li id="menu-item-883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-883"><a href="http://demo.fabthemes.com/edivos/blog/">Blog</a></li>
-      	 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-883">
+         <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href='<?php echo $base?>/index.php/account'>Account</a></li>
+      	<li style="width: 520" class="menu-item menu-item-type-post_type menu-item-object-page">&nbsp;</li> 
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-883">
 		<?php 
 			if (isset($_SESSION['uid'])) {
 				$uid = $_SESSION['uid']; 
-				echo 'Logged is as:<BR>'.$uid; 
+				echo 'Logged in as:<BR>'.$uid; 
 			}
 		?>
 	 </li>

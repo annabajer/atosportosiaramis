@@ -104,6 +104,38 @@ final class Database
 	}
 	return $results;
     }
+
+    public function borrowMovie($movie_id,$user_name) 
+    {
+	$query = "INSERT INTO borrows (movie_id, user_id, borrow_date) VALUES (".$movie_id.",(select id from users where username='".$user_name."'),now());";
+	$sql_result = mysqli_query($this->conn, $query);
+    }
+
+    public function returnMovie($movie_id) 
+    {
+	$query = "UPDATE borrows SET return_date=now() where movie_id=".$movie_id." and return_date='0000-00-00 00:00:00';";
+	$sql_result = mysqli_query($this->conn, $query);
+    }
+	public function isBorrowed($movie_id)
+	{
+		$query = "SELECT user_id from borrows where movie_id='".$movie_id."' and return_date='0000-00-00 00:00:00';";
+		$sql_result = mysqli_query($this->conn, $query);
+		if (mysqli_fetch_array($sql_result)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	public function whoBorrowed($movie_id)
+	{
+		$query = "select username from users where id=(SELECT user_id from borrows where movie_id='".$movie_id."' and return_date='0000-00-00 00:00:00');";
+		$sql_result = mysqli_query($this->conn, $query);
+		$row = mysqli_fetch_array($sql_result);
+		return $row[0];
+	}
+	
 	
 	public function validateUserPassword($user, $pass)
 	{
@@ -120,7 +152,6 @@ final class Database
 	{
 		
 		$query = "insert into reviews(movie_id,user_id,stars,title,text,date) VALUES ('".$movie_id."',(select id from users where username='".$user_name."'),'".$stars."','".$title."', '".$text."', '".$date."');";
-		echo ($query);
 		mysqli_query($this->conn, $query);
 	}
 
@@ -128,7 +159,8 @@ final class Database
     public function createDbTables()
     {
  	$all_queries = "DROP TABLE movie_genres;".
-		//"DROP TABLE reviews;".
+		"DROP TABLE reviews;".
+		"DROP TABLE borrows;".
 		"DROP TABLE movies;".
 		"DROP TABLE genres;".
 		"DROP TABLE users;".
@@ -183,14 +215,16 @@ final class Database
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,5);".
 		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Serena','2015-01-20','http://1.fwcdn.pl/contest/4651.4.jpg','Ut sit amet odio erat, ut rhoncus libero. Maecenas vestibulum dui et urna fringilla pulvinar at ornare nibh. Nam et scelerisque lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam quis neque et elit congue luctus. Sed ultrices tellus at dui pellentesque vulputate? Phasellus molestie tincidunt convallis. Nullam turpi.','https://www.youtube.com/embed/lITvFNhoxek');".
 		"insert into movie_genres(movie_id,genre_id) VALUES (14,9);".
-		//"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
-		//"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,4,'Dobry film', 'Jest wiele filmów, które potrafią wywołać ciarki na plecach bądź sprawić, że serce zaczyna bić szybciej lub że pierś wypełnia głęboki oddech. Znajdzie się także kilka produkcji, które wycisną z oczu łzy, albo wywołają szczery uśmiech na twarzy', '2014-12-12');".
-		//"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,2,3,'Każdy ma swojego Szerloka..', 'Nazwanie Franka Darabonta mistrzem w przenoszeniu prozy Stephena Kinga na ekran nie powinno nikogo dziwić. Dlaczego? Ponieważ jak do tej pory tylko on pokusił się to zrobić, a druga sprawa, że wyszło mu to świetnie i prawie bezbłędnie. Dwa filmy - najpierw Skazani na Shawshank, a potem Zielona Mila przyniosły temu Francuzowi uznanie widzów i rozpoznawalność.', '2015-01-02');".
+		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
+		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,4,'Dobry film', 'Jest wiele filmów, które potrafią wywołać ciarki na plecach bądź sprawić, że serce zaczyna bić szybciej lub że pierś wypełnia głęboki oddech. Znajdzie się także kilka produkcji, które wycisną z oczu łzy, albo wywołają szczery uśmiech na twarzy', '2014-12-12');".
+		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,2,3,'Każdy ma swojego Szerloka..', 'Nazwanie Franka Darabonta mistrzem w przenoszeniu prozy Stephena Kinga na ekran nie powinno nikogo dziwić. Dlaczego? Ponieważ jak do tej pory tylko on pokusił się to zrobić, a druga sprawa, że wyszło mu to świetnie i prawie bezbłędnie. Dwa filmy - najpierw Skazani na Shawshank, a potem Zielona Mila przyniosły temu Francuzowi uznanie widzów i rozpoznawalność.', '2015-01-02');".
 		"CREATE TABLE users (id serial PRIMARY KEY, username VARCHAR (80) NOT NULL, password VARCHAR (80) NOT NULL);".
 		"insert into users (username, password) VALUES ('user', 'pass');".
-		"insert into users (username, password) VALUES ('Mariola', 'huragan');".
-		"insert into users (username, password) VALUES ('ktokolwiek', 'cokolwiek');";
-	
+		"insert into users (username, password) VALUES ('admin', 'admin');".
+		"insert into users (username, password) VALUES ('ktokolwiek', 'cokolwiek');".
+		"CREATE TABLE borrows (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, borrow_date TIMESTAMP, return_date TIMESTAMP, FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(user_id) REFERENCES users(id));";
+		
+		
 
 
 	$queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/", $all_queries); 
@@ -208,7 +242,7 @@ final class Database
         $database = "s168932";
 
 	$this->conn = mysqli_connect($servername, $username, $password, $database);
-	$this->createDbTables();
+	//$this->createDbTables();
 	if (!$this->conn) {
 	    die('<div class="alert alert-danger" role="alert">Connection failed: '.mysqli_connect_error().'</div>');
 	}
