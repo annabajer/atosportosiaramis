@@ -81,6 +81,18 @@ final class Database
 	return $results;
     }
 
+    public function getUserReviews($user_id) 
+    {
+	$query = "SELECT id, movie_id, (select username from users where id=reviews.user_id), stars, title, text, date FROM reviews where user_id=".$user_id;
+	$sql_result = mysqli_query($this->conn, $query);
+	$results = array();
+	while($row = mysqli_fetch_array($sql_result))
+	{		
+		array_push($results,$row);
+	}
+	return $results;
+    }
+
     public function getMovieReviewAvg($movie_id) 
     {
 	$query = "SELECT count(*),ROUND(avg(stars),1),ROUND(avg(stars), 0) FROM reviews where movie_id=".$movie_id;
@@ -139,7 +151,7 @@ final class Database
 	
 	public function whatBorrowed($user_id)
 	{
-		$query = "select users.username,movies.title,borrows.borrow_date,borrows.return_date from borrows join users on users.id=borrows.user_id join movies on borrows.movie_id=movies.id where users.username='".$user_id."';";
+		$query = "select users.username,movies.title,movies.id,borrows.borrow_date,borrows.return_date from borrows join users on users.id=borrows.user_id join movies on borrows.movie_id=movies.id where users.username='".$user_id."';";
 		$sql_result = mysqli_query($this->conn, $query);
 		$results = array();
 		while($row = mysqli_fetch_array($sql_result))

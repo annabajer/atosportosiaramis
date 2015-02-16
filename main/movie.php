@@ -180,7 +180,7 @@
 <div id="main">
    <div id="content">
       <?php 
-	$reviews = $database->getMovieReviews($movie_id); 
+	$reviews = $database->getUserReviews($uid); 
 	foreach ($reviews as $index=>$review) {
 		echo '<div class="post">';
 		echo '	<div class="title"><h2><a href="" rel="bookmark">'.$review[4].'</a></h2></div>';
