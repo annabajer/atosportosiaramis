@@ -83,7 +83,7 @@ final class Database
 
     public function getUserReviews($user_id) 
     {
-	$query = "SELECT id, movie_id, (select username from users where id=reviews.user_id), stars, title, text, date FROM reviews where user_id=".$user_id;
+	$query = "SELECT id, movie_id, (select username from users where id=reviews.user_id), stars, title, text, date FROM reviews where user_id=(select id from users where username='".$user_id."');";
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
@@ -96,6 +96,18 @@ final class Database
     public function getMovieReviewAvg($movie_id) 
     {
 	$query = "SELECT count(*),ROUND(avg(stars),1),ROUND(avg(stars), 0) FROM reviews where movie_id=".$movie_id;
+	$sql_result = mysqli_query($this->conn, $query);
+	$results = array();
+	while($row = mysqli_fetch_array($sql_result))
+	{		
+		array_push($results,$row);
+	}
+	return $results[0];
+    }
+
+    public function getUserReviewAvg($user_id) 
+    {
+	$query = "SELECT count(*),ROUND(avg(stars),1),ROUND(avg(stars), 0) FROM reviews where user_id=(select id from users where username='".$user_id."');";
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
 	while($row = mysqli_fetch_array($sql_result))
