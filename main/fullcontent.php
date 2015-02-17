@@ -1,13 +1,20 @@
+
+<div class="entry">
+   <span class="genretag" style="margin-left:30px">Order by:
+			<a href="<?php echo $base.'?genres='.$selected_genres.'&order=id'?>">New added</a>
+			<a href="<?php echo $base.'?genres='.$selected_genres.'&order=premiereDate'?>">Newest</a>
+			<a href="<?php echo $base.'?genres='.$selected_genres.'&order=popularity'?>">Most popular</a>
+			<a href="<?php echo $base.'?genres='.$selected_genres.'&order=reviews'?>">Most reviewed</a>
+   </span>
+</div>
+
             <div id="fullcontent">
-               <div id="topbar" class="clearfix">
-                  <div class="leftinfo"> Latest Videos</div>
-               </div>
+
 
 	       <?php 
 
 		$database = Database::getInstance();
-		$movies = $database->getFullContentMovies($selected_genres);
-
+		$movies = $database->getFullContentMovies($selected_genres,$selected_order);
 		foreach ($movies as $movie) {
         		echo '<div class="video-post">';
 			echo '<div class="video-title">';

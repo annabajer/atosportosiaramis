@@ -2,6 +2,7 @@
 	$database = Database::getInstance();
 	$movie_id = htmlspecialchars($_GET["movie_id"]); 
 	$selected_genres = htmlspecialchars($_GET["genres"]); 
+	$selected_order = htmlspecialchars($_GET["order"]); 
 	$movie = $database->getMovieDetails($movie_id);
 	session_start();
 	$uid = isset($_POST['uid']) ? $_POST['uid'] : $_SESSION['uid'];

@@ -28,12 +28,20 @@ final class Database
 	return $results;
     }
 
-    public function getFullContentMovies($genre = NULL) 
+    public function getFullContentMovies($genre = NULL,$order = NULL) 
     {
-	if ($genre == NULL) {
-		$query = "SELECT id serial, title, DATE_FORMAT(premiereDate,'%Y-%m-%d'), thumbnailUrl, movieDescritpion, trailerUrl FROM movies";
+	if ($order == NULL) {
+		$order="id";
+	}
+	if ($order == "reviews") {
+		$query = "SELECT movies.id serial, movies.title, DATE_FORMAT(premiereDate,'%Y-%m-%d'), thumbnailUrl, movieDescritpion, trailerUrl FROM movies join reviews on movies.id=reviews.movie_id group by movie_id order by count(movie_id) desc";	
+
+	} else if ($order == "popularity") {
+		$query = "SELECT movies.id serial, movies.title, DATE_FORMAT(premiereDate,'%Y-%m-%d'), thumbnailUrl, movieDescritpion, trailerUrl FROM movies join borrows on movies.id=borrows.movie_id group by movie_id order by count(movie_id) desc";
+	} else if ($genre == NULL) {
+		$query = "SELECT id serial, title, DATE_FORMAT(premiereDate,'%Y-%m-%d'), thumbnailUrl, movieDescritpion, trailerUrl FROM movies ORDER BY ".$order." desc";
 	} else {
-		$query = "SELECT DISTINCT movies.* FROM movies inner join movie_genres on movie_genres.movie_id=movies.id where movie_genres.genre_id in (".$genre.")";
+		$query = "SELECT DISTINCT movies.* FROM movies inner join movie_genres on movie_genres.movie_id=movies.id where movie_genres.genre_id in (".$genre.")  ORDER BY ".$order." desc";
 	}
 	$sql_result = mysqli_query($this->conn, $query);
 	$results = array();
@@ -131,8 +139,10 @@ final class Database
 
     public function borrowMovie($movie_id,$user_name) 
     {
-	$query = "INSERT INTO borrows (movie_id, user_id, borrow_date) VALUES (".$movie_id.",(select id from users where username='".$user_name."'),now());";
-	$sql_result = mysqli_query($this->conn, $query);
+
+		$query = "INSERT INTO borrows (movie_id, user_id, borrow_date) VALUES (".$movie_id.",(select id from users where username='".$user_name."'),now());";
+		$sql_result = mysqli_query($this->conn, $query);
+	
     }
 
     public function returnMovie($movie_id) 
@@ -211,7 +221,7 @@ final class Database
 		"INSERT INTO genres(text) VALUES ('Fiction');".
 		"INSERT INTO genres(text) VALUES ('Horror');".
 		"INSERT INTO genres(text) VALUES ('Drama');".
-		"CREATE TABLE movie_genres (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, genre_id BIGINT UNSIGNED, FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(genre_id) REFERENCES genres(id));".
+		"CREATE TABLE movie_genres (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED NOT NULL, genre_id BIGINT UNSIGNED, FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(genre_id) REFERENCES genres(id));".
 		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Sherlock Holmes', '2013-06-01', 'http://cdn.demo.fabthemes.com/edivos/files/2012/07/sherlock-holmes-a-game-of-shadows-9243-1024x768-450x280.jpg','Praesent sit amet tellus vitae mauris vehicula euismod. Integer tincidunt placerat blandit! Etiam eleifend ligula at mauris cursus accumsan sollicitudin erat aliquet. Ut faucibus metus rutrum metus auctor quis convallis mauris bibendum. Ut molestie dignissim vulputate! Ut tempus sem ac lacus scelerisque sit amet egestas nisi euismod. Vivamus non orci ac ligula aliquam vestibulum. Sed laoreet, tellus vestibulum convallis sagittis, nisi eros aliquet eros, sit amet bibendum magna enim sit amet ipsum. Duis non dui a enim tincidunt dictum tristique sed est. Donec mauris augue, convallis sed tempor in, vehicula quis metus. Quisque tellus risus, accumsan in bibendum eu, placerat a quam.','https://www.youtube.com/embed/Egcx63-FfTE');".
 		"insert into movie_genres(movie_id,genre_id) VALUES (1,1);".
 		"insert into movie_genres(movie_id,genre_id) VALUES (1,2);".
@@ -251,14 +261,14 @@ final class Database
 		"insert into movie_genres(movie_id,genre_id) VALUES (13,5);".
 		"insert into movies(title, premiereDate, thumbnailUrl, movieDescritpion, trailerUrl) VALUES ('Serena','2015-01-20','http://1.fwcdn.pl/contest/4651.4.jpg','Ut sit amet odio erat, ut rhoncus libero. Maecenas vestibulum dui et urna fringilla pulvinar at ornare nibh. Nam et scelerisque lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam quis neque et elit congue luctus. Sed ultrices tellus at dui pellentesque vulputate? Phasellus molestie tincidunt convallis. Nullam turpi.','https://www.youtube.com/embed/lITvFNhoxek');".
 		"insert into movie_genres(movie_id,genre_id) VALUES (14,9);".
-		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
+		"CREATE TABLE reviews (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED NOT NULL, user_id BIGINT UNSIGNED NOT NULL, stars SMALLINT, title TEXT, text TEXT, date DATE,  FOREIGN KEY(movie_id) REFERENCES movies(id));".
 		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,1,4,'Dobry film', 'Jest wiele filmów, które potrafią wywołać ciarki na plecach bądź sprawić, że serce zaczyna bić szybciej lub że pierś wypełnia głęboki oddech. Znajdzie się także kilka produkcji, które wycisną z oczu łzy, albo wywołają szczery uśmiech na twarzy', '2014-12-12');".
 		"insert into reviews(movie_id,user_id,stars,title,text,date) VALUES (1,2,3,'Każdy ma swojego Szerloka..', 'Nazwanie Franka Darabonta mistrzem w przenoszeniu prozy Stephena Kinga na ekran nie powinno nikogo dziwić. Dlaczego? Ponieważ jak do tej pory tylko on pokusił się to zrobić, a druga sprawa, że wyszło mu to świetnie i prawie bezbłędnie. Dwa filmy - najpierw Skazani na Shawshank, a potem Zielona Mila przyniosły temu Francuzowi uznanie widzów i rozpoznawalność.', '2015-01-02');".
 		"CREATE TABLE users (id serial PRIMARY KEY, username VARCHAR (80) NOT NULL, password VARCHAR (80) NOT NULL);".
 		"insert into users (username, password) VALUES ('user', 'pass');".
 		"insert into users (username, password) VALUES ('admin', 'admin');".
 		"insert into users (username, password) VALUES ('ktokolwiek', 'cokolwiek');".
-		"CREATE TABLE borrows (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED, user_id BIGINT UNSIGNED, borrow_date TIMESTAMP, return_date TIMESTAMP, FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(user_id) REFERENCES users(id));";
+		"CREATE TABLE borrows (id serial PRIMARY KEY, movie_id BIGINT UNSIGNED NOT NULL, user_id BIGINT UNSIGNED NOT NULL, borrow_date TIMESTAMP NOT NULL, return_date TIMESTAMP, FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(user_id) REFERENCES users(id));";
 		
 		
 
@@ -278,7 +288,7 @@ final class Database
         $database = "s168932";
 
 	$this->conn = mysqli_connect($servername, $username, $password, $database);
-	//$this->createDbTables();
+//	$this->createDbTables();
 	if (!$this->conn) {
 	    die('<div class="alert alert-danger" role="alert">Connection failed: '.mysqli_connect_error().'</div>');
 	}
