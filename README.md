@@ -12,6 +12,8 @@ http://v-ie.uek.krakow.pl/~s178251
 System has 3 users defined:
 
 User: user        Password:pass
+
 User: admin       Password:admin
+
 User: ktokolwiek  Password:cokolwiek
 
