@@ -26,10 +26,6 @@
 	       ?>
 		
 	       <div class="clear"></div>
-               <div id="navigation" class="clearfix">
-                  <div class="wp-pagenavi">
-                     <span class="pages">Page 1 of 2</span><span class="current">1</span><a href="http://demo.fabthemes.com/edivos/page/2/" class="page larger">2</a><a href="http://demo.fabthemes.com/edivos/page/2/" class="nextpostslink">»</a>
-                  </div>
-               </div>
+
             </div>
             <div class="clear"></div>

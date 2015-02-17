@@ -34,7 +34,10 @@
 -->
 
          <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-880">
-            <a href="#">Genre</a>
+            <?php 
+		echo '<a href="'.$base.'">';
+	    ?>
+		Genre</a>
             <ul class="sub-menu">
 		<?php 
 			echo '<li class="menu-item menu-item-type-taxonomy menu-item-object-genre"><a href='.$base.'>All</a></li>';
