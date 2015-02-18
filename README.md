@@ -17,3 +17,4 @@ User: admin       Password:admin
 
 User: ktokolwiek  Password:cokolwiek
 
+Be aware of simultatnius access to database and using of CreateDatabase funciton from MovieEntity.php
